@@ -95,7 +95,10 @@ if ( !class_exists( 'GoogleRankChecker' ) ) {
 						$j = -1;
 						$i = 1;
 						
-						while( ( $j = stripos( $data, '<cite class="_Rm">', $j+1 ) ) !== false ) {
+						preg_match_all('/<cite class="_Rm([^"]*)">/', $data, $res, PREG_OFFSET_CAPTURE);
+						foreach($res[0] as $resul)
+						{
+							$j = $resul[1];
 							$k = stripos( $data, '</cite>', $j );
 							$link = strip_tags( substr( $data, $j, $k-$j ) );
 							$rank	= $i++;
